@@ -1,5 +1,5 @@
 # freetype-subpixel (fs) user interface
-Welcome to freetype-subpixel (fs), a simple immediate mode UI written in C using OpenGL. While there are many other UI libraries available, they are too complex to my needs.
+Freetype-subpixel (fs) is a simple immediate mode UI written in C using OpenGL. While there are many other UI libraries available, they are too complex to my needs.
 Goals and features:
  - Single-header file library
  - Quality font rendering with FreeType subpixel option
