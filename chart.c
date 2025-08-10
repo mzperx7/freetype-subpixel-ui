@@ -1,3 +1,4 @@
+#define FS_IMPLEMENTATION
 #include "fs.h"
 
 // Window size

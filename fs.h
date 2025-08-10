@@ -1,3 +1,6 @@
+#ifndef FS_HEADER_
+#define FS_HEADER_
+
 #include <assert.h>
 #include <stdio.h>
 
@@ -8,45 +11,45 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-#define NO_SIGNAL      -1   // No signal
-#define MAX_INSTANCES  8000 // Max glyphs to render
-#define MAX_LEN        1023 // Max length of text fields
-#define MAX_WIDTH      4096 // Max texture width
-#define PADDING        5    // Padding in pixels
-#define SCREEN_NUM     6    // Number of screens
-#define VEC_INIT_CAP   8    // Initial vector size
+#define NO_SIGNAL         (-1)  // No signal
+#define MAX_INSTANCES     8000  // Max glyphs to render
+#define MAX_LEN           1023  // Max length of text fields
+#define MAX_WIDTH         4096  // Max texture width
+#define PADDING           5     // Padding in pixels
+#define SCREEN_NUM        6     // Number of screens
+#define VEC_INIT_CAP      8     // Initial vector size
 
-#define FONTS_NUM      6    // Number of fonts
-#define GLYPHS_NUM     95   // ASCII glyphs (126 - 32 + 1)
+#define FONTS_NUM         6     // Number of fonts
+#define GLYPHS_NUM        95    // ASCII glyphs (126 - 32 + 1)
 
-#define CLICK_LO       0.02f // Double click LO time
-#define CLICK_HI       0.2f  // Double click HI time
-#define ACC_Y          10.0f // Vertical acceleration
-#define LIMIT          5.0f  // Duration of scroll
-#define SLOWDOWN       0.98f // Slowdown factor
+#define CLICK_LO          0.02f // Double click LO time
+#define CLICK_HI          0.2f  // Double click HI time
+#define ACC_Y             10.0f // Vertical acceleration
+#define LIMIT             5.0f  // Duration of scroll
+#define SLOWDOWN          0.98f // Slowdown factor
 
-#define ACTIVE_BOX     ctx->inputbox.boxes[ctx->screen].selected
-#define BUTTON_CLICKED ctx->buttons.clicked
-#define COMMITED_BOX   ctx->inputbox.boxes[ctx->screen].commited
-#define SCREEN         ctx->screen
+#define ACTIVE_BOX        ctx->inputbox.boxes[ctx->screen].selected
+#define BUTTON_CLICKED    ctx->buttons.clicked
+#define COMMITED_BOX      ctx->inputbox.boxes[ctx->screen].commited
+#define SCREEN            ctx->screen
 
-enum {TXT, NUM};
-typedef enum Align {ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT } Align;
-typedef enum {MEDIUM, BIG, SMALL, MONO, BOX, HOVER } FontType;
+enum { TXT, NUM };
+typedef enum Align { ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT }   Align;
+typedef enum { MEDIUM, BIG, SMALL, MONO, BOX, HOVER }          FontType;
 
-typedef float vec2[2];
-typedef float vec3[3];
-typedef float vec4[4];
-typedef vec4 mat4[4];
+typedef float                                                  vec2[2];
+typedef float                                                  vec3[3];
+typedef float                                                  vec4[4];
+typedef vec4                                                   mat4[4];
 
-typedef struct fs_context fs_Context;
+typedef struct fs_context                                      fs_Context;
 typedef void (*FnPtr)(struct fs_context *); // Function pointer type
 
 typedef struct
 {
-    char path[64]; // Font path
-    float size;    // Font size
-    float gamma;   // Gamma correction
+    char  path[64]; // Font path
+    float size;     // Font size
+    float gamma;    // Gamma correction
 } fs_Fonts;
 
 typedef struct
@@ -54,22 +57,22 @@ typedef struct
     size_t capacity;
     size_t size;
     size_t item_size;
-    void *items;
+    void   *items;
 } fs_Vector;
 
 typedef struct
 {
-    vec4 pos;      // Area background x,y,w,h
-    vec4 text_pos; // Text background position x,y,w,h
-    FnPtr func;    // Function call
+    vec4  pos;      // Area background x,y,w,h
+    vec4  text_pos; // Text background position x,y,w,h
+    FnPtr func;     // Function call
 } fs_Area;
 
 typedef struct
 {
     fs_Vector *area;
-    vec4 col;   // Area background color
-    int active; // Index of active area
-    int count;  // Number of areas added to the current screen
+    vec4      col;    // Area background color
+    int       active; // Index of active area
+    int       count;  // Number of areas added to the current screen
 } fs_Areas;
 
 typedef struct
@@ -85,39 +88,39 @@ typedef struct
 
 typedef struct
 {
-    fs_Glyph glyphs[GLYPHS_NUM];
+    fs_Glyph    glyphs[GLYPHS_NUM];
     signed long **kerning_table;
-    GLfloat gamma;
-    GLuint line_height;
-    GLuint tex_id;
-    GLuint tex_metrics_id;
-    GLuint tex_width;
-    GLuint tex_height;
+    GLfloat     gamma;
+    GLuint      line_height;
+    GLuint      tex_id;
+    GLuint      tex_metrics_id;
+    GLuint      tex_width;
+    GLuint      tex_height;
 } fs_Atlas;
 
 typedef struct
 {
-    char text[MAX_LEN + 1]; // Input text
-    vec4 pos;               // Inputbox position: x,y,w,h
-    float len_pixel;        // Text pixel length
-    int len_char;           // Text char length
-    int flag;               // Text or numeric
+    char  text[MAX_LEN + 1]; // Input text
+    vec4  pos;               // Inputbox position: x,y,w,h
+    float len_pixel;         // Text pixel length
+    int   len_char;          // Text char length
+    int   flag;              // Text or numeric
 } fs_Box;
 
 typedef struct
 {
     fs_Vector *box;
-    int selected; // Index of selected inputbox
-    int commited; // ENTER pressed
-    int count;    // Number of inputbox on current screen
+    int       selected; // Index of selected inputbox
+    int       commited; // ENTER pressed
+    int       count;    // Number of inputbox on current screen
 } fs_Boxes;
 
 typedef struct
 {
     fs_Boxes boxes[SCREEN_NUM];
-    vec4 bg_col;
-    vec4 fg_col;
-    vec4 sel_col;
+    vec4     bg_col;
+    vec4     fg_col;
+    vec4     sel_col;
 } fs_Inputbox;
 
 typedef struct
@@ -129,10 +132,10 @@ typedef struct
 typedef struct
 {
     fs_Vector *button;
-    vec4 normal_col;
-    vec4 text_col;
-    vec4 hover_col;
-    int clicked; // Index of button clicked
+    vec4      normal_col;
+    vec4      text_col;
+    vec4      hover_col;
+    int       clicked; // Index of button clicked
 } fs_Buttons;
 
 typedef struct
@@ -146,12 +149,12 @@ typedef struct
 
 typedef struct
 {
-    float factor;  // Slow down factor
-    float depth;   // Max depth of objects
-    float offset;  // Offset y
-    float max;     // Max depth of objects
-    float speed;   // Slow down speed
-    int direction; // Direction up or down
+    float factor;    // Slow down factor
+    float depth;     // Max depth of objects
+    float offset;    // Offset y
+    float max;       // Max depth of objects
+    float speed;     // Slow down speed
+    int   direction; // Direction up or down
 } fs_Scroll;
 
 typedef struct
@@ -179,24 +182,26 @@ typedef struct
 
 struct fs_context
 {
-    fs_Atlas fonts[FONTS_NUM]; // Font atlas
-    fs_Texts texts[FONTS_NUM]; // Text per font types
-    fs_Areas areas;            // Hover areas on current screen
-    fs_Buttons buttons;        // Buttons
-    fs_Inputbox inputbox;      // Inputboxes
-    fs_Rects rects;            // Rectangles
-    fs_Scroll scroll;          // Vertical scroll
-    fs_Shader area_shader;     // Shader program for hover area
-    fs_Shader quad_shader;     // Shader program for rectangles
-    fs_Shader text_shader;     // Shader program for text
-    GLFWwindow *window;        // GLFW window
-    mat4 transform;            // Runtime variable - OpenGl transformation
-    float last_click;          // Runtime variable - last click time
-    double mx, my;             // Runtime variable - mouse x,y position
-    int double_click;          // Runtime variable - double click flag
-    int screen;                // Runtime variable - current screen
-    int width, height;         // Runtime variable - window size
+    fs_Atlas    fonts[FONTS_NUM]; // Font atlas
+    fs_Texts    texts[FONTS_NUM]; // Text per font types
+    fs_Areas    areas;            // Hover areas on current screen
+    fs_Buttons  buttons;          // Buttons
+    fs_Inputbox inputbox;         // Inputboxes
+    fs_Rects    rects;            // Rectangles
+    fs_Scroll   scroll;           // Vertical scroll
+    fs_Shader   area_shader;      // Shader program for hover area
+    fs_Shader   quad_shader;      // Shader program for rectangles
+    fs_Shader   text_shader;      // Shader program for text
+    GLFWwindow  *window;          // GLFW window
+    mat4        transform;        // Runtime variable - OpenGl transformation
+    float       last_click;       // Runtime variable - last click time
+    double      mx, my;           // Runtime variable - mouse x,y position
+    int         double_click;     // Runtime variable - double click flag
+    int         screen;           // Runtime variable - current screen
+    int         width, height;    // Runtime variable - window size
 };
+
+#ifdef FS_IMPLEMENTATION
 
 inline static void fs_vec2_copy(vec2 dest, vec2 src)
 {
@@ -234,12 +239,14 @@ inline static void fs_mat4_copy(mat4 dest, mat4 src)
 
 inline static void fs_mat4_set_identity(mat4 mat)
 {
-    mat4 t = {
-        {1.0, 0.0, 0.0, 0.0},
-        {0.0, 1.0, 0.0, 0.0},
-        {0.0, 0.0, 1.0, 0.0},
-        {0.0, 0.0, 0.0, 1.0}
+    mat4 t =
+    {
+        { 1.0, 0.0, 0.0, 0.0 },
+        { 0.0, 1.0, 0.0, 0.0 },
+        { 0.0, 0.0, 1.0, 0.0 },
+        { 0.0, 0.0, 0.0, 1.0 }
     };
+
     fs_mat4_copy(mat, t);
 }
 
@@ -261,6 +268,7 @@ static void fs_mat4_translate(mat4 m, vec3 v)
 static fs_Vector *fs_vector_init(size_t data_size, size_t capacity)
 {
     fs_Vector *vector = malloc(sizeof(fs_Vector));
+
     if (vector == NULL)
     {
         assert(0 && "Failed to initialize vector");
@@ -275,7 +283,7 @@ static fs_Vector *fs_vector_init(size_t data_size, size_t capacity)
     }
     vector->item_size = data_size;
 
-    return vector;
+    return(vector);
 }
 
 static void fs_vector_add(fs_Vector *vec, const void *data)
@@ -296,7 +304,7 @@ static void fs_vector_add(fs_Vector *vec, const void *data)
 
 inline static void *fs_vector_get(fs_Vector *vector, size_t index)
 {
-    return (char *)(vector->items) + vector->item_size * index;
+    return((char *)(vector->items) + vector->item_size * index);
 }
 
 inline static void fs_vector_reset(fs_Vector *vector)
@@ -319,21 +327,26 @@ inline static void fs_vector_free(fs_Vector *vector)
 
 static float fs_text_width(fs_Atlas *atlas, const char *text)
 {
-    float width = 0;
+    float         width = 0;
     unsigned char previous = 32;
+
     for (const unsigned char *c = (const unsigned char *)text; *c; ++c)
     {
+        if (*c < 32 || *c > 127)
+        {
+            continue; // Quick and dirty solution to handle unicode characters
+        }
         signed long kerning = atlas->kerning_table[previous][*c];
         width += atlas->glyphs[*c - 32].advance_x + kerning;
         previous = *c;
     }
-    return width;
+    return(width);
 }
 
 static void fs_block_width(fs_Atlas *atlas, const char *text, float *width, int *rows)
 {
     float row_width = 0;
-    char *p, row_text[MAX_LEN];
+    char  *p, row_text[MAX_LEN];
 
     while (1)
     {
@@ -360,6 +373,7 @@ static void fs_block_width(fs_Atlas *atlas, const char *text, float *width, int 
 static float fs_text_height(fs_Atlas *atlas, const char *text)
 {
     float height = 0;
+
     for (const unsigned char *c = (const unsigned char *)text; *c; ++c)
     {
         if (atlas->glyphs[*c - 32].bitmap_height > height)
@@ -367,26 +381,28 @@ static float fs_text_height(fs_Atlas *atlas, const char *text)
             height = atlas->glyphs[*c - 32].bitmap_height;
         }
     }
-    return height;
+    return(height);
 }
 
 static char *fs_get_inputbox_content(fs_Context *ctx, int index)
 {
-    if (ctx->inputbox.boxes[ctx->screen].box->size < index) {
-        return NULL;
+    if (ctx->inputbox.boxes[ctx->screen].box->size < index)
+    {
+        return(NULL);
     }
     fs_Box *box = (fs_Box *)fs_vector_get(ctx->inputbox.boxes[ctx->screen].box, index);
-    return box->text;
+    return(box->text);
 }
 
 static void fs_set_inputbox_content(fs_Context *ctx, int index, char *text)
 {
-    if (ctx->inputbox.boxes[ctx->screen].box->size < index) {
+    if (ctx->inputbox.boxes[ctx->screen].box->size < index)
+    {
         return;
     }
     fs_Box *box = (fs_Box *)fs_vector_get(ctx->inputbox.boxes[ctx->screen].box, index);
     memset(box->text, 0, MAX_LEN + 1);
-    strcpy_s(box->text, MAX_LEN, text);
+    strncpy(box->text, text, MAX_LEN);
     box->len_char = strlen(text);
     box->len_pixel = fs_text_width(&ctx->fonts[BOX], text) + PADDING;
 }
@@ -399,6 +415,7 @@ static void fs_error_callback(int error, const char *description)
 static void fs_char_callback(GLFWwindow *window, unsigned int codepoint)
 {
     fs_Context *ctx = (fs_Context *)glfwGetWindowUserPointer(window);
+
     if (ctx->inputbox.boxes[ctx->screen].selected == NO_SIGNAL)
     {
         return;
@@ -427,7 +444,7 @@ static void fs_char_callback(GLFWwindow *window, unsigned int codepoint)
     }
 
     // Check pixel width
-    char previous = 32;
+    char        previous = 32;
     signed long kerning = 0;
     if (box->len_char > 0)
     {
@@ -443,7 +460,7 @@ static void fs_char_callback(GLFWwindow *window, unsigned int codepoint)
     box->text[box->len_char] = codepoint;
     if (strcmp(box->text, "-") != 0 && box->flag == NUM) // Negative sign is valid
     {
-        char *pEnd;
+        char   *pEnd;
         double value = strtod(box->text, &pEnd);
         if (pEnd == box->text || *pEnd != '\0')
         {
@@ -465,7 +482,7 @@ static void fs_key_callback(GLFWwindow *window, int key, int scancode, int actio
     }
 
     fs_Context *ctx = (fs_Context *)glfwGetWindowUserPointer(window);
-    fs_Box *box = NULL;
+    fs_Box     *box = NULL;
     if (ctx->inputbox.boxes[ctx->screen].selected == NO_SIGNAL)
     {
         box = (fs_Box *)fs_vector_get(ctx->inputbox.boxes[ctx->screen].box, 0);
@@ -480,6 +497,7 @@ static void fs_key_callback(GLFWwindow *window, int key, int scancode, int actio
     case GLFW_KEY_ESCAPE:
         glfwSetWindowShouldClose(ctx->window, GL_TRUE);
         break;
+
     case GLFW_KEY_BACKSPACE:
         if (ctx->inputbox.boxes[ctx->screen].selected != NO_SIGNAL && box->len_char > 0)
         {
@@ -498,6 +516,7 @@ static void fs_key_callback(GLFWwindow *window, int key, int scancode, int actio
             ctx->double_click = GLFW_FALSE;
         }
         break;
+
     case GLFW_KEY_TAB:
         if (mods == GLFW_MOD_SHIFT)
         {
@@ -523,6 +542,7 @@ static void fs_key_callback(GLFWwindow *window, int key, int scancode, int actio
         }
         ctx->double_click = GLFW_FALSE;
         break;
+
     case GLFW_KEY_ENTER:
         ctx->inputbox.boxes[ctx->screen].commited = GLFW_TRUE;
         break;
@@ -546,7 +566,7 @@ static void fs_key_callback(GLFWwindow *window, int key, int scancode, int actio
         // Text in clipboard valid for numeric inputbox?
         if (box->flag == NUM)
         {
-            char *pEnd;
+            char   *pEnd;
             double value = strtod(cb, &pEnd);
             if (pEnd == cb || *pEnd != '\0')
             {
@@ -565,8 +585,8 @@ static void fs_key_callback(GLFWwindow *window, int key, int scancode, int actio
         }
 
         // Calculate number of characters to paste
-        char buf[MAX_LEN + 1] = {0};
-        int copy_len = 0;
+        char buf[MAX_LEN + 1] = { 0 };
+        int  copy_len = 0;
 
         for (unsigned char *p = (unsigned char *)cb; *p; ++p)
         {
@@ -630,6 +650,7 @@ static void fs_button_callback(GLFWwindow *window, int btn_m, int action, int mo
 static void fs_scroll_callback(GLFWwindow *window, double offsetX, double offsetY)
 {
     fs_Context *ctx = (fs_Context *)glfwGetWindowUserPointer(window);
+
     ctx->scroll.offset -= offsetY * ACC_Y;
     ctx->scroll.direction = (offsetY > 0) - (offsetY < 0);
     ctx->scroll.speed = ACC_Y;
@@ -639,6 +660,7 @@ static void fs_scroll_callback(GLFWwindow *window, double offsetX, double offset
 static void fs_resize_callback(GLFWwindow *window, int width, int height)
 {
     fs_Context *ctx = (fs_Context *)glfwGetWindowUserPointer(window);
+
     glViewport(0, 0, width, height);
     ctx->width = width;
     ctx->height = height;
@@ -647,6 +669,7 @@ static void fs_resize_callback(GLFWwindow *window, int width, int height)
 static void fs_add_area(fs_Context *ctx, vec4 pos, void *callback_fn)
 {
     fs_Area area;
+
     fs_vec4_copy(area.pos, pos);
     area.func = callback_fn;
     fs_vector_add(ctx->areas.area, &area);
@@ -655,6 +678,7 @@ static void fs_add_area(fs_Context *ctx, vec4 pos, void *callback_fn)
 static void fs_add_rect(fs_Context *ctx, vec4 pos, vec4 col)
 {
     fs_Rect rect;
+
     fs_vec4_copy(rect.pos, pos);
     fs_vec4_copy(rect.col, col);
     fs_vector_add(ctx->rects.rect, &rect);
@@ -663,21 +687,23 @@ static void fs_add_rect(fs_Context *ctx, vec4 pos, vec4 col)
 static void fs_add_text(fs_Context *ctx, vec2 pos, char *text, FontType type, vec4 fg_col, Align alignment)
 {
     fs_Atlas *atlas = &ctx->fonts[type];
-    fs_Text txt;
+    fs_Text  txt;
 
     switch (alignment)
     {
     case ALIGN_CENTER:
         pos[0] -= fs_text_width(atlas, text) / 2.0f;
         break;
+
     case ALIGN_RIGHT:
         pos[0] -= fs_text_width(atlas, text);
         break;
+
     default:
         break;
     }
 
-    strcpy_s(txt.text, MAX_LEN, text);
+    strncpy(txt.text, text, MAX_LEN);
     fs_vec4_copy(txt.col, fg_col);
     fs_vec2_copy(txt.pos, pos);
     fs_vector_add(ctx->texts[type].text, &txt);
@@ -687,21 +713,22 @@ static void fs_add_area_text(fs_Context *ctx, char *text, vec4 fg_col)
 {
     text[strlen(text)] = '\0';
     float width = 0;
-    int rows = 3; // Min 1 row and  1 + 1 extra blank row at top and bottom
+    int   rows = 3; // Min 1 row and  1 + 1 extra blank row at top and bottom
 
     fs_Atlas *atlas = &ctx->fonts[HOVER];
     fs_block_width(atlas, text, &width, &rows);
 
     fs_Area *area = (fs_Area *)fs_vector_get(ctx->areas.area, ctx->areas.active);
-    float ypos = ctx->my + ctx->scroll.offset / 2.0f;
-    vec4 bg_pos = {ctx->mx, ypos, width + ctx->fonts[HOVER].line_height * 2.0f, rows * ctx->fonts[HOVER].line_height};
+    float   ypos = ctx->my + ctx->scroll.offset / 2.0f;
+    vec4    bg_pos = { ctx->mx, ypos, width + ctx->fonts[HOVER].line_height * 2.0f, rows * ctx->fonts[HOVER].line_height };
     fs_vec4_copy(area->text_pos, bg_pos);
-    fs_add_text(ctx, (vec2){ctx->mx + ctx->fonts[HOVER].line_height, ypos + ctx->fonts[HOVER].line_height * 2.0f}, text, HOVER, fg_col, ALIGN_LEFT);
+    fs_add_text(ctx, (vec2){ ctx->mx + ctx->fonts[HOVER].line_height, ypos + ctx->fonts[HOVER].line_height * 2.0f }, text, HOVER, fg_col, ALIGN_LEFT);
 }
 
 static int fs_check_area(fs_Context *ctx)
 {
     float ypos = ctx->my + ctx->scroll.offset / 2.0f;
+
     for (int i = 0; i < ctx->areas.area->size; ++i)
     {
         fs_Area *hover = (fs_Area *)fs_vector_get(ctx->areas.area, i);
@@ -709,23 +736,24 @@ static int fs_check_area(fs_Context *ctx)
         {
             ctx->areas.active = i;
             hover->func(ctx);
-            return 1;
+            return(1);
         }
     }
 
-    return 0;
+    return(0);
 }
 
 static void fs_add_button(fs_Context *ctx, vec4 pos, char *text, FontType type)
 {
     fs_Button btn;
-    strcpy_s(btn.text, MAX_LEN, text);
+
+    strncpy(btn.text, text, MAX_LEN);
     fs_vec4_copy(btn.pos, pos);
     fs_vector_add(ctx->buttons.button, &btn);
 
     fs_Atlas *atlas = &ctx->fonts[type];
     pos[1] += (pos[3] + fs_text_height(atlas, text)) / 2.0f;
-    fs_add_text(ctx, (vec2){pos[0] + pos[2] / 2.0f, pos[1]}, text, type, ctx->buttons.text_col, ALIGN_CENTER);
+    fs_add_text(ctx, (vec2){ pos[0] + pos[2] / 2.0f, pos[1] }, text, type, ctx->buttons.text_col, ALIGN_CENTER);
 }
 
 static void fs_add_inputbox(fs_Context *ctx, vec4 pos, int flag)
@@ -737,7 +765,7 @@ static void fs_add_inputbox(fs_Context *ctx, vec4 pos, int flag)
         return;
     }
 
-    fs_Box box = {0};
+    fs_Box box = { 0 };
     fs_vec4_copy(box.pos, pos);
     box.flag = flag;
     fs_vector_add(ctx->inputbox.boxes[ctx->screen].box, &box);
@@ -835,13 +863,13 @@ void fs_render_text(fs_Context *ctx, FontType type)
     glUniform1f(glGetUniformLocation(ctx->text_shader.program, "gamma"), ctx->fonts[type].gamma);
     GLfloat vbi_data[MAX_INSTANCES * 3];
     GLfloat vbi_colors[MAX_INSTANCES][3];
-    int n = 0;
+    int     n = 0;
 
     for (int i = 0; i < ctx->texts[type].text->size; ++i)
     {
         fs_Text *text = (fs_Text *)fs_vector_get(ctx->texts[type].text, i);
-        float xpos = text->pos[0] - ctx->width / 2.0f;
-        float ypos = -text->pos[1] + ctx->height / 2.0f;
+        float   xpos = text->pos[0] - ctx->width / 2.0f;
+        float   ypos = -text->pos[1] + ctx->height / 2.0f;
 
         int previous = 0;
         for (const unsigned char *c = (const unsigned char *)text; *c; ++c)
@@ -909,7 +937,7 @@ static void fs_render_ui(fs_Context *ctx)
     }
 
     fs_mat4_set_identity(ctx->transform);
-    fs_mat4_translate(ctx->transform, (vec3){0.0f, ctx->scroll.offset / ctx->height, 0.0f});
+    fs_mat4_translate(ctx->transform, (vec3){ 0.0f, ctx->scroll.offset / ctx->height, 0.0f });
 
     glUseProgram(ctx->quad_shader.program);
     glUniform2f(glGetUniformLocation(ctx->quad_shader.program, "res_win"), ctx->width, ctx->height);
@@ -935,11 +963,11 @@ static void fs_render_ui(fs_Context *ctx)
 
         if (ctx->inputbox.boxes[ctx->screen].selected == i && ctx->double_click == GLFW_TRUE)
         {
-            fs_add_text(ctx, (vec2){box->pos[0] + PADDING, ypos}, box->text, BOX, ctx->inputbox.bg_col, ALIGN_LEFT);
+            fs_add_text(ctx, (vec2){ box->pos[0] + PADDING, ypos }, box->text, BOX, ctx->inputbox.bg_col, ALIGN_LEFT);
         }
         else
         {
-            fs_add_text(ctx, (vec2){box->pos[0] + PADDING, ypos}, box->text, BOX, ctx->inputbox.fg_col, ALIGN_LEFT);
+            fs_add_text(ctx, (vec2){ box->pos[0] + PADDING, ypos }, box->text, BOX, ctx->inputbox.fg_col, ALIGN_LEFT);
         }
     }
 
@@ -1014,7 +1042,7 @@ static void fs_change_screen(fs_Context *ctx, int scr)
 void fs_init_font_atlas(fs_Context *ctx, FontType type, const char *font, float size)
 {
     FT_Library ft_lib = NULL;
-    FT_Face face = NULL;
+    FT_Face    face = NULL;
 
     if (FT_Init_FreeType(&ft_lib) != 0)
     {
@@ -1028,7 +1056,7 @@ void fs_init_font_atlas(fs_Context *ctx, FontType type, const char *font, float 
         exit(1);
     }
 
-    fs_Atlas atlas = {0};
+    fs_Atlas atlas = { 0 };
     FT_Set_Char_Size(face, 0, size * 64, 96, 96);
     FT_GlyphSlot slot = face->glyph;
     atlas.line_height = face->size->metrics.height >> 6;
@@ -1130,7 +1158,7 @@ void fs_init_font_atlas(fs_Context *ctx, FontType type, const char *font, float 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, GLYPHS_NUM, 2, 0, GL_RGBA, GL_FLOAT, tex_data);
 
     // Save kerning data if available - 0..255 to handle non-ASCII characters in text
-    signed long table[256][256] = {0};
+    signed long table[256][256] = { 0 };
     if (FT_HAS_KERNING(face))
     {
         // Populate kerning pairs
@@ -1138,14 +1166,15 @@ void fs_init_font_atlas(fs_Context *ctx, FontType type, const char *font, float 
         {
             for (int c2 = 0; c2 <= 255; c2++)
             {
-                FT_UInt glyph_index1 = FT_Get_Char_Index(face, c1);
-                FT_UInt glyph_index2 = FT_Get_Char_Index(face, c2);
+                FT_UInt   glyph_index1 = FT_Get_Char_Index(face, c1);
+                FT_UInt   glyph_index2 = FT_Get_Char_Index(face, c2);
                 FT_Vector kerning;
                 // Get kerning value
                 if (FT_Get_Kerning(face, glyph_index1, glyph_index2, FT_KERNING_DEFAULT, &kerning) != 0)
                 {
                     kerning.x = 0; // Error getting kerning for 'c1' and 'c2'
-                };
+                }
+                ;
                 // Store kerning adjustment (in 26.6 fixed-point format, convert to pixels)
                 table[c1][c2] = kerning.x >> 6;
             }
@@ -1183,7 +1212,7 @@ static void fs_init_fonts(fs_Context *ctx, fs_Fonts *fonts)
 
 GLuint fs_load_shaders(const char *vertex_shader, const char *fragment_shader)
 {
-    GLint result1, result2;
+    GLint  result1, result2;
     GLuint vertex_shader_ID = glCreateShader(GL_VERTEX_SHADER);
     GLuint fragment_shader_ID = glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -1199,7 +1228,7 @@ GLuint fs_load_shaders(const char *vertex_shader, const char *fragment_shader)
     {
         glDeleteShader(vertex_shader_ID);
         glDeleteShader(fragment_shader_ID);
-        return 0;
+        return(0);
     }
 
     GLuint program_ID = glCreateProgram();
@@ -1212,12 +1241,12 @@ GLuint fs_load_shaders(const char *vertex_shader, const char *fragment_shader)
     {
         glDeleteShader(vertex_shader_ID);
         glDeleteShader(fragment_shader_ID);
-        return 0;
+        return(0);
     }
 
     glDeleteShader(vertex_shader_ID);
     glDeleteShader(fragment_shader_ID);
-    return program_ID;
+    return(program_ID);
 }
 
 void fs_init_context(fs_Context *ctx, char *title, int width, int height, vec4 colors[])
@@ -1353,7 +1382,7 @@ void fs_init_context(fs_Context *ctx, char *title, int width, int height, vec4 c
     glBindVertexArray(ctx->text_shader.vao);
 
     // Text shader program - VBO for quad
-    GLfloat vbo_quad_data[] = {0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0};
+    GLfloat vbo_quad_data[] = { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0 };
     glGenBuffers(1, &ctx->text_shader.vbo_quad);
     glBindBuffer(GL_ARRAY_BUFFER, ctx->text_shader.vbo_quad);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vbo_quad_data), vbo_quad_data, GL_STATIC_DRAW);
@@ -1460,3 +1489,7 @@ static void fs_exit(fs_Context *ctx)
     glfwTerminate();
     free(ctx);
 }
+
+#endif // FS_IMPLEMENTATION
+
+#endif // FS_HEADER_
