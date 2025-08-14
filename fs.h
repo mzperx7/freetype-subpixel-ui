@@ -1352,15 +1352,11 @@ void fs_init_context(fs_Context *ctx, char *title, int width, int height, vec4 c
                                 "float r = texture(sampler_bitmap, uv + vec2(-subpixel_offset, 0.0)).r;\n"
                                 "float g = texture(sampler_bitmap, uv).g;\n"
                                 "float b = texture(sampler_bitmap, uv + vec2(subpixel_offset, 0.0)).b;\n"
-                                "float center = texture(sampler_bitmap, uv).g;\n"
-                                "float left = texture(sampler_bitmap, uv + vec2(-subpixel_offset, 0.0)).g;\n"
-                                "float right = texture(sampler_bitmap, uv + vec2(subpixel_offset, 0.0)).g;\n"
-                                "float sharpened_g = clamp(center * 2.0 - 0.5 * (left + right), 0.0, 1.0);\n"
-                                "r = pow(r, gamma);\n"
-                                "g = pow(sharpened_g, gamma);\n"
-                                "b = pow(b, gamma);\n"
+                                "r = pow(r, 1.0 / gamma);\n"
+                                "g = pow(g, 1.0 / gamma);\n"
+                                "b = pow(b, 1.0 / gamma);\n"
                                 "float alpha = r * 0.3 + g * 0.6 + b * 0.1;\n"
-                                "FragColor = vec4(textColor, pow(alpha, 1.0 / gamma));\n"
+                                "FragColor = vec4(textColor, alpha);\n"
                                 "}\n";
 
     // Rectangle quad shader program

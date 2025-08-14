@@ -95,7 +95,7 @@ void area_value(fs_Context *ctx)
 
 void area_baseline_screen_0(fs_Context *ctx)
 {
-    char *text = "Adjust x coordinate on chart.";
+    char *text = "Adjust position of axis X on chart.";
     fs_add_area_text(ctx, text, (vec4)WHITE);
 }
 
