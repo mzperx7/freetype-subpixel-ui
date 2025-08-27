@@ -313,12 +313,12 @@ int main(int argc, char **argv)
     fs_init_context(ctx, "Waterfall chart", WIDTH, HEIGHT, fs_colors);
 
     fs_Fonts fonts[FONTS_NUM] = {
-        {   .path = FONT_UI, .size = 35, .gamma = 1.5}, // Medium
-        {   .path = FONT_UI, .size = 70, .gamma = 1.5}, // Big
-        {   .path = FONT_UI, .size = 25, .gamma = 1.5}, // Small
-        { .path = FONT_MONO, .size = 22, .gamma = 1.5}, // Mono
-        { .path = FONT_MONO, .size = 22, .gamma = 1.5}, // Inputbox
-        { .path = FONT_MONO, .size = 20, .gamma = 1.5}, // Hover
+        {   .path = FONT_UI, .size = 25, .gamma = 1.5}, // Medium
+        {   .path = FONT_UI, .size = 50, .gamma = 1.5}, // Big
+        {   .path = FONT_UI, .size = 16, .gamma = 1.5}, // Small
+        { .path = FONT_MONO, .size = 16, .gamma = 1.5}, // Mono
+        { .path = FONT_MONO, .size = 15, .gamma = 1.5}, // Inputbox
+        { .path = FONT_MONO, .size = 14, .gamma = 1.5}, // Hover
     };
 
     fs_init_fonts(ctx, fonts);
